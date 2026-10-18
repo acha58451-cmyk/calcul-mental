@@ -9,14 +9,16 @@
 <body>
     <h1>Mon application de calcul mental</h1>
 
-    <h2>Combien font 25 × 4 ?</h2>
+    <h2 id="question"></h2>
 
     <input type="number" id="reponse"
            placeholder="Ta réponse">
 
     <button id="valider">Valider</button>
+    <button id="suivant" disabled>Question suivante</button>
 
     <p id="resultat"></p>
+    <p id="score">Score : 0 / 0</p>
 
     <script src="script.js"></script>
 </body>
