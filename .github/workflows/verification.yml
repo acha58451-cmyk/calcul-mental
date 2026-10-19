@@ -1,0 +1,15 @@
+name: Verification du quiz
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verifier-fichier:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Recuperer le projet
+        uses: actions/checkout@v4
+
+      - name: Verifier index.html
+        run: test -f index.html
