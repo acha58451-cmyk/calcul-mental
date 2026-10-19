@@ -5,6 +5,7 @@ const resultat = document.getElementById("resultat");
 const scoreTexte = document.getElementById("score");
 const boutonValider = document.getElementById("valider");
 const boutonSuivant = document.getElementById("suivant");
+const boutonRecommencer = document.getElementById("recommencer");
 
 let bonneReponse;
 let bonnes = 0;
@@ -51,5 +52,16 @@ function verifierReponse() {
 
 boutonValider.addEventListener("click", verifierReponse);
 boutonSuivant.addEventListener("click", nouvelleQuestion);
+
+function recommencerQuiz() {
+    bonnes = 0;
+    total = 0;
+
+    scoreTexte.textContent = "Score : 0 / 0";
+
+    nouvelleQuestion();
+}
+
+boutonRecommencer.addEventListener("click", recommencerQuiz);
 
 nouvelleQuestion();
