@@ -7,9 +7,46 @@ const boutonValider = document.getElementById("valider");
 const boutonSuivant = document.getElementById("suivant");
 const boutonRecommencer = document.getElementById("recommencer");
 const difficulte = document.getElementById("difficulte");
+const chronometre = document.getElementById("chronometre");
+
+let tempsRestant = 10;
+let intervalle = null;
 let bonneReponse;
 let bonnes = 0;
 let total = 0;
+function arreterChronometre() {
+    clearInterval(intervalle);
+    intervalle = null;
+}
+
+function demarrerChronometre() {
+    arreterChronometre();
+
+    tempsRestant = 10;
+    chronometre.textContent = `Temps restant : ${tempsRestant} s`;
+
+    intervalle = setInterval(function() {
+        tempsRestant--;
+
+        chronometre.textContent =
+            `Temps restant : ${tempsRestant} s`;
+
+        if (tempsRestant <= 0) {
+            arreterChronometre();
+
+            total++;
+
+            resultat.textContent =
+                `Temps écoulé ! La bonne réponse est ${bonneReponse}.`;
+            resultat.style.color = "red";
+
+            scoreTexte.textContent = `Score : ${bonnes} / ${total}`;
+
+            boutonValider.disabled = true;
+            boutonSuivant.disabled = false;
+        }
+    }, 1000);
+}
 
 function nouvelleQuestion() {
     let maximum;
@@ -33,6 +70,7 @@ function nouvelleQuestion() {
     boutonValider.disabled = false;
     boutonSuivant.disabled = true;
     champ.focus();
+    demarrerChronometre();
 }
 difficulte.addEventListener("change", function() {
     nouvelleQuestion();
@@ -43,6 +81,7 @@ function verifierReponse() {
         resultat.style.color = "orange";
         return;
     }
+    arreterChronometre();
 
     total++;
 
