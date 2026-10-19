@@ -6,14 +6,24 @@ const scoreTexte = document.getElementById("score");
 const boutonValider = document.getElementById("valider");
 const boutonSuivant = document.getElementById("suivant");
 const boutonRecommencer = document.getElementById("recommencer");
-
+const difficulte = document.getElementById("difficulte");
 let bonneReponse;
 let bonnes = 0;
 let total = 0;
 
 function nouvelleQuestion() {
-    const a = Math.floor(Math.random() * 10) + 1;
-    const b = Math.floor(Math.random() * 10) + 1;
+    let maximum;
+
+    if (difficulte.value === "facile") {
+        maximum = 5;
+    } else if (difficulte.value === "moyen") {
+        maximum = 10;
+    } else {
+        maximum = 20;
+    }
+
+    const a = Math.floor(Math.random() * maximum) + 1;
+    const b = Math.floor(Math.random() * maximum) + 1;
 
     bonneReponse = a * b;
 
@@ -24,7 +34,9 @@ function nouvelleQuestion() {
     boutonSuivant.disabled = true;
     champ.focus();
 }
-
+difficulte.addEventListener("change", function() {
+    nouvelleQuestion();
+});
 function verifierReponse() {
     if (champ.value.trim() === "") {
         resultat.textContent = "Entre une réponse.";
